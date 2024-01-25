@@ -1,0 +1,14 @@
+{
+    "performer_id": "uuid here",
+    "name": "Coward",
+    "email": "coward@gmail.com",
+    "number": "111-111-1111",
+    "current_performances": [],
+    "past_performances": [
+        "Howard's Lament",
+        "Howard's Call",
+        "Howard",
+        "Breaking Howard",
+        "I Am Howard"
+    ]
+}
