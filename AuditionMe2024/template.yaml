@@ -1,0 +1,132 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  TodoPerson2024SAM
+
+  Sample SAM Template for TodoPerson2024SAM
+
+Globals:
+  Function:
+    Timeout: 3
+    MemorySize: 128
+
+  Api:
+    Cors:
+      AllowMethods: "'GET,POST,DELETE,PUT,OPTIONS'"
+      AllowHeaders: "'content-type'"
+      AllowOrigin: "'*'"
+
+Resources:
+  CreatePersonFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../TodoPerson2024ECR/person/post_person/
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - DynamoDBCrudPolicy:
+            TableName:
+              #!Ref MyDynamoDB
+              TodosPerson2024
+      Architectures:
+        - x86_64
+      Events:
+        CreatePerson:
+          Type: Api
+          Properties:
+            Path: /person
+            Method: post
+
+  GetPersonFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../TodoPerson2024ECR/person/get_person/
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - DynamoDBCrudPolicy:
+            TableName:
+              #!Ref MyDynamoDB
+              TodosPerson2024
+      Architectures:
+        - x86_64
+      Events:
+        GetPerson:
+          Type: Api
+          Properties:
+            Path: /person
+            Method: get
+
+  GetPersonFunctionWithID:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../TodoPerson2024ECR/person/get_person/
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - DynamoDBCrudPolicy:
+            TableName:
+              #!Ref MyDynamoDB
+              TodosPerson2024
+      Architectures:
+        - x86_64
+      Events:
+        GetPersonID:
+          Type: Api
+          Properties:
+            Path: /person/{id}
+            Method: get
+
+  PutPersonFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../TodoPerson2024ECR/person/put_person/
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - DynamoDBCrudPolicy:
+            TableName:
+              #!Ref MyDynamoDB
+              TodosPerson2024
+      Architectures:
+        - x86_64
+      Events:
+        PutPerson:
+          Type: Api
+          Properties:
+            Path: /person
+            Method: put
+
+  DeletePersonFunctionWithID:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../TodoPerson2024ECR/person/delete_person/
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - DynamoDBCrudPolicy:
+            TableName:
+              #!Ref MyDynamoDB
+              TodosPerson2024
+      Architectures:
+        - x86_64
+      Events:
+        DeletePerson:
+          Type: Api
+          Properties:
+            Path: /person/{id}
+            Method: delete
+
+  MyDynamoDB:
+    Type: AWS::Serverless::SimpleTable
+    #Type: AWS::Serverless::DynamoDBTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      TableName: TodosPerson2024SAM
