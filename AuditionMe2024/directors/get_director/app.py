@@ -2,6 +2,7 @@ import boto3
 from boto3.dynamodb.conditions import Key
 from os import getenv
 from uuid import uuid4
+import json
 
 region_name = getenv('APP_REGION')
 directors_table = boto3.resource('dynamodb', region_name=region_name ).Table('AuditionMeDirectors2024')
@@ -9,8 +10,6 @@ directors_table = boto3.resource('dynamodb', region_name=region_name ).Table('Au
 def lambda_handler(event, context):
     if 'pathParameters' in event:
         path_params = event['pathParameters']
-
-        # return path_params
 
         if path_params is None or 'director_id' not in path_params:
             return response(200, directors_table.scan()['Items'])
@@ -26,11 +25,11 @@ def lambda_handler(event, context):
 
 def response(code, body):
     return {
-        'status': code,
+        'statusCode': code,
         'headers': {
             'Content-Type': 'application/json'
             },
-        'body': body
+        'body': json.dumps(body)
     }
 
 my_event = {

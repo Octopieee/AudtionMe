@@ -2,6 +2,7 @@ import boto3
 from boto3.dynamodb.conditions import Key
 from os import getenv
 from uuid import uuid4
+import json
 
 region_name = getenv('APP_REGION')
 directors_table = boto3.resource('dynamodb', region_name=region_name ).Table('AuditionMeDirectors2024')
@@ -12,22 +13,24 @@ def lambda_handler(event, context):
     email = event['email']
     number = event['number']
     
-    director = directors_table.put_item(Item = {
+    director = {
         'director_id': director_id,
         'name' : name,
         'email' : email,
         'number' : number
-    })
+    }
     
-    return response(200, { 'director_id': director_id, 'director': director })
+    directors_table.put_item(Item = director)
+    
+    return response(200, director)
 
 def response(code, body):
     return {
-        'status': code,
+        'statusCode': code,
         'headers': {
             'Content-Type': 'application/json'
             },
-        'body': body
+        'body': json.dumps(body)
     }
 
 my_event = {

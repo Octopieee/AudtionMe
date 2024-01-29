@@ -2,6 +2,7 @@ import boto3
 from boto3.dynamodb.conditions import Key
 from os import getenv
 from uuid import uuid4
+import json
 
 region_name = getenv('APP_REGION')
 performances_table = boto3.resource('dynamodb', region_name=region_name ).Table('AuditionMePerformances2024')
@@ -31,11 +32,11 @@ def lambda_handler(event, context):
 
 def response(code, body):
     return {
-        'status': code,
+        'statusCode': code,
         'headers': {
             'Content-Type': 'application/json'
             },
-        'body': body
+        'body': json.dumps(body)
     }
 
 my_event = {
