@@ -1,14 +1,18 @@
 {
     "performance_id": "uuid here",
     "title": "The Cowling Howard",
-    "director": "Howard",
+    "director": "uuid here",
+    "venue": "Le Noward",
     "dates": [
         "8-8-2024",
         "4-4-2024"
     ],
+    "auditions_open": true,
     "available_characters": [
         "Boward the Coward",
         "Loward the Doward"
     ],
-    "venue": "Le Noward"
+    "audition_list": [
+        "uuids here"
+    ]
 }

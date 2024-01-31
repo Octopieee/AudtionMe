@@ -1,384 +1,338 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  AuditionMe2024SAM
+Description: 'AuditionMe2024SAM
 
   Sample SAM Template for AuditionMe2024SAM
 
+  '
 Globals:
   Function:
     Timeout: 3
     MemorySize: 128
-
   Api:
     Cors:
-      AllowMethods: "'GET,POST,DELETE,PUT,OPTIONS'"
-      AllowHeaders: "'content-type'"
-      AllowOrigin: "'*'"
-
+      AllowMethods: '''GET,POST,DELETE,PUT,OPTIONS'''
+      AllowHeaders: '''content-type'''
+      AllowOrigin: '''*'''
 Resources:
   PostDirector:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./directors/post_director
+      CodeUri: PostDirector
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMeDirectors2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMeDirectors2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         CreatePerson:
           Type: Api
           Properties:
             Path: /directors
             Method: post
-
+    Metadata:
+      SamResourceId: PostDirector
   GetDirector:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./directors/get_director
+      CodeUri: GetDirector
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMeDirectors2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMeDirectors2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         GetPerson:
           Type: Api
           Properties:
             Path: /directors
             Method: get
-
+    Metadata:
+      SamResourceId: GetDirector
   GetDirectorByID:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./directors/get_director
+      CodeUri: GetDirectorByID
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMeDirectors2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMeDirectors2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         GetPersonID:
           Type: Api
           Properties:
             Path: /directors/{director_id}
             Method: get
-
+    Metadata:
+      SamResourceId: GetDirectorByID
   UpdateDirector:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./directors/update_director
+      CodeUri: UpdateDirector
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMeDirectors2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMeDirectors2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         PutPerson:
           Type: Api
           Properties:
             Path: /directors
             Method: put
-
+    Metadata:
+      SamResourceId: UpdateDirector
   DeleteDirectorByID:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./directors/delete_director
+      CodeUri: DeleteDirectorByID
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMeDirectors2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMeDirectors2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         DeletePerson:
           Type: Api
           Properties:
             Path: /directors/{director_id}
             Method: delete
-  
+    Metadata:
+      SamResourceId: DeleteDirectorByID
   PostPerformance:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./performances/post_performance
+      CodeUri: PostPerformance
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformances2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformances2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         CreatePerson:
           Type: Api
           Properties:
             Path: /performances
             Method: post
-
+    Metadata:
+      SamResourceId: PostPerformance
   GetPerformance:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./performances/get_performance
+      CodeUri: GetPerformance
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformances2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformances2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         GetPerson:
           Type: Api
           Properties:
             Path: /performances
             Method: get
-
+    Metadata:
+      SamResourceId: GetPerformance
   GetPerformanceByID:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./performances/get_performance
+      CodeUri: GetPerformanceByID
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformances2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformances2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         GetPersonID:
           Type: Api
           Properties:
-            Path: /performances/{id}
+            Path: /performances/{performance_id}
             Method: get
-
+    Metadata:
+      SamResourceId: GetPerformanceByID
   UpdatePerformance:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./performances/update_performance
+      CodeUri: UpdatePerformance
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformances2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformances2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         PutPerson:
           Type: Api
           Properties:
             Path: /performances
             Method: put
-
+    Metadata:
+      SamResourceId: UpdatePerformance
   DeletePerformanceByID:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./performances/delete_performance
+      CodeUri: DeletePerformanceByID
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformances2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformances2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         DeletePerson:
           Type: Api
           Properties:
             Path: /performances/{performance_id}
             Method: delete
-
-  SignUpForAuditions:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ./performances/sign_up
-      Handler: app.lambda_handler
-      Runtime: python3.12
-      Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformances2024
-              AuditionMePerformers2024
-      Architectures:
-        - x86_64
-      Events:
-        DeletePerson:
-          Type: Api
-          Properties:
-            Path: /performances/{performance_id}/signup/{performer_id}
-            Method: put
-
-  CastPerformerFromAuditionsList:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ./performances/cast_performer
-      Handler: app.lambda_handler
-      Runtime: python3.12
-      Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformances2024
-              AuditionMePerformers2024
-      Architectures:
-        - x86_64
-      Events:
-        DeletePerson:
-          Type: Api
-          Properties:
-            Path: /performances/{performance_id}/cast/{performer_id}
-            Method: put
-
+    Metadata:
+      SamResourceId: DeletePerformanceByID
   PostPerformer:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./performers/post_performer
+      CodeUri: PostPerformer
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformers2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformers2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         CreatePerson:
           Type: Api
           Properties:
             Path: /performers
             Method: post
-
+    Metadata:
+      SamResourceId: PostPerformer
   GetPerformer:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./performers/get_performer
+      CodeUri: GetPerformer
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformers2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformers2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         GetPerson:
           Type: Api
           Properties:
             Path: /performers
             Method: get
-
+    Metadata:
+      SamResourceId: GetPerformer
   GetPerformerByID:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./performers/get_performer
+      CodeUri: GetPerformerByID
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformers2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformers2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         GetPersonID:
           Type: Api
           Properties:
             Path: /performers/{performer_id}
             Method: get
-
+    Metadata:
+      SamResourceId: GetPerformerByID
   UpdatePerformer:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./performers/update_performer
+      CodeUri: UpdatePerformer
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformers2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformers2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         PutPerson:
           Type: Api
           Properties:
             Path: /performers
             Method: put
-
+    Metadata:
+      SamResourceId: UpdatePerformer
   DeletePerformerByID:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./performers/delete_performer
+      CodeUri: DeletePerformerByID
       Handler: app.lambda_handler
       Runtime: python3.12
       Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformers2024
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformers2024
       Architectures:
-        - x86_64
+      - x86_64
       Events:
         DeletePerson:
           Type: Api
           Properties:
             Path: /performers/{performer_id}
             Method: delete
-
+    Metadata:
+      SamResourceId: DeletePerformerByID
   DirectorsTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
       PrimaryKey:
         Name: director_id
         Type: String
-      TableName: AuditionMeDirectors2024
-
+      TableName: AuditionMeDirectors2024SAM
   PerformancesTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
       PrimaryKey:
         Name: performance_id
         Type: String
-      TableName: AuditionMePerformances2024
-
+      TableName: AuditionMePerformances2024SAM
   PerformersTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
       PrimaryKey:
         Name: performer_id
         Type: String
-      TableName: AuditionMePerformers2024
+      TableName: AuditionMePerformers2024SAM

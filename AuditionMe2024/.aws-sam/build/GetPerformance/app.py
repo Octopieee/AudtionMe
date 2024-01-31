@@ -11,16 +11,13 @@ def lambda_handler(event, context):
     if 'pathParameters' in event:
         path_params = event['pathParameters']
 
-        if path_params is None or 'id' not in path_params:
+        if path_params is None or 'performance_id' not in path_params:
             return response(200, performances_table.scan()['Items'])
         
-        if path_params is not None and 'id' in path_params:
-            id = path_params['id']
+        if path_params is not None and 'performance_id' in path_params:
+            performance_id = path_params['performance_id']
 
-            performance = performances_table.get_item(Key = { 'id': id })['Item']
-
-            if performance is None:
-                performance = performances_table.get_item(Key = { 'director': id })['Item']
+            performance = performances_table.get_item(Key = { 'performance_id': performance_id })['Item']
 
             return response(200, performance)
         

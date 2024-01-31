@@ -10,12 +10,10 @@ performances_table = boto3.resource('dynamodb', region_name=region_name ).Table(
 def lambda_handler(event, context):
     performance_id = event['performance_id']
     title = event['title']
-    director_id = event['director']
-    venue = event['venue']
+    director = event['director']
     dates = event['dates']
-    auditions_open = event['auditions_open']
     available_characters = event['available_characters']
-    audition_list = event['audition_list']
+    venue = event['venue']
     
     if 'director_id' not in event or performance_id is None:
         response(400, "ID is required!")
@@ -28,23 +26,17 @@ def lambda_handler(event, context):
     if title is not None:
         performance['title'] = title
 
-    if director_id is not None:
-        performance['director'] = director_id
-
-    if venue is not None:
-        performance['venue'] = venue
+    if director is not None:
+        performance['director'] = director
     
     if dates is not None and isinstance(dates, list):
         performance['dates'] = dates
 
-    if auditions_open is not None:
-        performance['auditions_open'] = auditions_open
-
     if available_characters is not None and isinstance(available_characters, list):
         performance['available_characters'] = available_characters
 
-    if audition_list is not None and isinstance(audition_list, list):
-        audition_list = event['audition_list']
+    if venue is not None:
+        performance['venue'] = venue
 
     performances_table.put_item(Item = performance)
 

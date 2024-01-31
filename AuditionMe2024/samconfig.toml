@@ -4,7 +4,7 @@ version = 0.1
 
 [default]
 [default.global.parameters]
-stack_name = "TodoPerson2024SAM"
+stack_name = "AuditionMe2024SAM"
 
 [default.build.parameters]
 cached = true
@@ -30,10 +30,10 @@ warm_containers = "EAGER"
 [default.local_start_lambda.parameters]
 warm_containers = "EAGER"
 
-[chris.deploy.parameters]
-stack_name = "TodoPerson2024SAM"
+[henry.deploy.parameters]
+stack_name = "AuditionMe2024SAM"
 resolve_s3 = true
-s3_prefix = "TodoPerson2024SAM"
+s3_prefix = "AuditionMe2024SAM"
 region = "us-east-2"
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
