@@ -109,4 +109,22 @@ manifest_hash = ""
 packagetype = "Zip"
 functions = ["DeletePerformerByID"]
 
+[function_build_definitions.8b897525-d9a2-4bc3-9542-1891da412a4b]
+codeuri = "C:\\Users\\HRodriguezBerber\\Documents\\Neumont\\SEN310\\AudtionMe\\AuditionMe2024\\performances\\sign_up"
+runtime = "python3.12"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["SignUp"]
+
+[function_build_definitions.db96821c-6645-4be7-b7ae-4344164eba1f]
+codeuri = "C:\\Users\\HRodriguezBerber\\Documents\\Neumont\\SEN310\\AudtionMe\\AuditionMe2024\\performances\\cast_performer"
+runtime = "python3.12"
+architecture = "x86_64"
+handler = "app.lambda_handler"
+manifest_hash = ""
+packagetype = "Zip"
+functions = ["CastPerformer"]
+
 [layer_build_definitions]

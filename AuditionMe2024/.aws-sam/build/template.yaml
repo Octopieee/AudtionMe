@@ -195,6 +195,48 @@ Resources:
             Method: put
     Metadata:
       SamResourceId: UpdatePerformance
+  SignUp:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: SignUp
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Policies:
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformances2024
+      Architectures:
+      - x86_64
+      Events:
+        DeletePerson:
+          Type: Api
+          Properties:
+            Path: /performances/signup
+            Method: put
+    Metadata:
+      SamResourceId: SignUp
+  CastPerformer:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: CastPerformer
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Policies:
+      - AmazonDynamoDBFullAccess
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformances2024
+      - DynamoDBCrudPolicy:
+          TableName: AuditionMePerformers2024
+      Architectures:
+      - x86_64
+      Events:
+        DeletePerson:
+          Type: Api
+          Properties:
+            Path: /performances/cast
+            Method: put
+    Metadata:
+      SamResourceId: CastPerformer
   DeletePerformanceByID:
     Type: AWS::Serverless::Function
     Properties:
@@ -315,24 +357,3 @@ Resources:
             Method: delete
     Metadata:
       SamResourceId: DeletePerformerByID
-  DirectorsTable:
-    Type: AWS::Serverless::SimpleTable
-    Properties:
-      PrimaryKey:
-        Name: director_id
-        Type: String
-      TableName: AuditionMeDirectors2024SAM
-  PerformancesTable:
-    Type: AWS::Serverless::SimpleTable
-    Properties:
-      PrimaryKey:
-        Name: performance_id
-        Type: String
-      TableName: AuditionMePerformances2024SAM
-  PerformersTable:
-    Type: AWS::Serverless::SimpleTable
-    Properties:
-      PrimaryKey:
-        Name: performer_id
-        Type: String
-      TableName: AuditionMePerformers2024SAM

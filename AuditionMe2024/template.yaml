@@ -174,7 +174,7 @@ Resources:
         GetPersonID:
           Type: Api
           Properties:
-            Path: /performances/{id}
+            Path: /performances/{performance_id}
             Method: get
 
   UpdatePerformance:
@@ -196,6 +196,47 @@ Resources:
           Properties:
             Path: /performances
             Method: put
+  
+  SignUp:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./performances/sign_up
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - DynamoDBCrudPolicy:
+            TableName: 
+              AuditionMePerformances2024
+      Architectures:
+        - x86_64
+      Events:
+        DeletePerson:
+          Type: Api
+          Properties:
+            Path: /performances/signup
+            Method: put
+
+  CastPerformer:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./performances/cast_performer
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - DynamoDBCrudPolicy:
+            TableName: AuditionMePerformances2024
+        - DynamoDBCrudPolicy:
+            TableName: AuditionMePerformers2024
+      Architectures:
+        - x86_64
+      Events:
+        DeletePerson:
+          Type: Api
+          Properties:
+            Path: /performances/cast
+            Method: put
 
   DeletePerformanceByID:
     Type: AWS::Serverless::Function
@@ -216,48 +257,6 @@ Resources:
           Properties:
             Path: /performances/{performance_id}
             Method: delete
-
-  SignUpForAuditions:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ./performances/sign_up
-      Handler: app.lambda_handler
-      Runtime: python3.12
-      Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformances2024
-              AuditionMePerformers2024
-      Architectures:
-        - x86_64
-      Events:
-        DeletePerson:
-          Type: Api
-          Properties:
-            Path: /performances/{performance_id}/signup/{performer_id}
-            Method: put
-
-  CastPerformerFromAuditionsList:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: ./performances/cast_performer
-      Handler: app.lambda_handler
-      Runtime: python3.12
-      Policies:
-        - AmazonDynamoDBFullAccess
-        - DynamoDBCrudPolicy:
-            TableName:
-              AuditionMePerformances2024
-              AuditionMePerformers2024
-      Architectures:
-        - x86_64
-      Events:
-        DeletePerson:
-          Type: Api
-          Properties:
-            Path: /performances/{performance_id}/cast/{performer_id}
-            Method: put
 
   PostPerformer:
     Type: AWS::Serverless::Function
@@ -359,26 +358,26 @@ Resources:
             Path: /performers/{performer_id}
             Method: delete
 
-  DirectorsTable:
-    Type: AWS::Serverless::SimpleTable
-    Properties:
-      PrimaryKey:
-        Name: director_id
-        Type: String
-      TableName: AuditionMeDirectors2024
+  # DirectorsTable:
+  #   Type: AWS::Serverless::SimpleTable
+  #   Properties:
+  #     PrimaryKey:
+  #       Name: director_id
+  #       Type: String
+  #     TableName: AuditionMeDirectors2024SAM
 
-  PerformancesTable:
-    Type: AWS::Serverless::SimpleTable
-    Properties:
-      PrimaryKey:
-        Name: performance_id
-        Type: String
-      TableName: AuditionMePerformances2024
+  # PerformancesTable:
+  #   Type: AWS::Serverless::SimpleTable
+  #   Properties:
+  #     PrimaryKey:
+  #       Name: performance_id
+  #       Type: String
+  #     TableName: AuditionMePerformances2024SAM
 
-  PerformersTable:
-    Type: AWS::Serverless::SimpleTable
-    Properties:
-      PrimaryKey:
-        Name: performer_id
-        Type: String
-      TableName: AuditionMePerformers2024
+  # PerformersTable:
+  #   Type: AWS::Serverless::SimpleTable
+  #   Properties:
+  #     PrimaryKey:
+  #       Name: performer_id
+  #       Type: String
+  #     TableName: AuditionMePerformers2024SAM

@@ -19,6 +19,9 @@ def lambda_handler(event, context):
 
             performance = performances_table.get_item(Key = { 'performance_id': performance_id })['Item']
 
+            if performance is None:
+                performance = performances_table.get_item(Key = { 'director': performance_id })['Item']
+
             return response(200, performance)
         
     return response(200, performances_table.scan()['Items'])
