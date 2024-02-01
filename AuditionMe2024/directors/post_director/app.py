@@ -33,10 +33,10 @@ def response(code, body):
         'body': json.dumps(body)
     }
 
-my_event = {
-    'name': 'Howard',
-    'email': 'howard@gmail.com',
-    'number': '801-801-8018'
-}
+# my_event = {
+#     'name': 'Howard',
+#     'email': 'howard@gmail.com',
+#     'number': '801-801-8018'
+# }
 
-lambda_handler(my_event, None)
+# lambda_handler(my_event, None)

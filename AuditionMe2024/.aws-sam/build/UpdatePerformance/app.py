@@ -59,19 +59,19 @@ def response(code, body):
         'body': json.dumps(body)
     }
 
-my_event = {
-    "performance_id": "uuid here",
-    "title": "The Cowling Howard",
-    "director": "Howard",
-    "dates": [
-        "8-8-2024",
-        "4-4-2024"
-    ],
-    "available_characters": [
-        "Boward the Coward",
-        "Loward the Doward"
-    ],
-    "venue": "Le Noward"
-}
+# my_event = {S
+#     "performance_id": "uuid here",
+#     "title": "The Cowling Howard",
+#     "director": "Howard",
+#     "dates": [
+#         "8-8-2024",
+#         "4-4-2024"
+#     ],
+#     "available_characters": [
+#         "Boward the Coward",
+#         "Loward the Doward"
+#     ],
+#     "venue": "Le Noward"
+# }
 
-print(lambda_handler(my_event, None))
+# print(lambda_handler(my_event, None))

@@ -32,8 +32,8 @@ def response(code, body):
         'body': json.dumps(body)
     }
 
-my_event = {
-    'test_event': 'hi :D'
-}
+# my_event = {
+#     'test_event': 'hi :D'
+# }
 
-print(lambda_handler(my_event, None))
+# print(lambda_handler(my_event, None))
