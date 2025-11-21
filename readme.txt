@@ -1,6 +1,10 @@
-#AudtionMe AWS
+===
+
+AudtionMe AWS
 
 A project for Neumont college SEN310.
+
+===
 
 # SAM Commands
 sam init
